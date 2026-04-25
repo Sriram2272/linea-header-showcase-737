@@ -121,8 +121,23 @@ const Chatbot = () => {
                       : "bg-muted text-foreground"
                   }`}
                 >
-                  <div className="prose prose-sm max-w-none [&>*]:my-0 [&_p]:my-0 [&_strong]:font-medium">
-                    <ReactMarkdown>{m.content || "…"}</ReactMarkdown>
+                  <div className="prose prose-sm max-w-none [&>*]:my-0 [&_p]:my-0 [&_strong]:font-medium [&_ul]:my-1 [&_ul]:pl-4 [&_li]:my-0.5">
+                    <ReactMarkdown
+                      components={{
+                        a: ({ node, ...props }) => (
+                          <a
+                            {...props}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`underline underline-offset-2 ${
+                              m.role === "user" ? "text-background" : "text-foreground font-medium"
+                            }`}
+                          />
+                        ),
+                      }}
+                    >
+                      {m.content || "…"}
+                    </ReactMarkdown>
                   </div>
                 </div>
               </div>
