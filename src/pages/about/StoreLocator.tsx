@@ -9,21 +9,21 @@ import AboutSidebar from "../../components/about/AboutSidebar";
 const StoreLocator = () => {
   const stores = [
     {
-      name: "LINEA Madison Avenue",
+      name: "LUMEN AI Madison Avenue",
       address: "789 Madison Avenue, New York, NY 10065",
       phone: "+1 (212) 555-0123",
       hours: "Mon-Sat: 10AM-8PM, Sun: 12PM-6PM",
       services: ["Personal Shopping", "Custom Design", "Repairs", "Appraisals"]
     },
     {
-      name: "LINEA Beverly Hills",
+      name: "LUMEN AI Beverly Hills",
       address: "456 Rodeo Drive, Beverly Hills, CA 90210",
       phone: "+1 (310) 555-0456",
       hours: "Mon-Sat: 10AM-8PM, Sun: 12PM-6PM",
       services: ["Personal Shopping", "Custom Design", "VIP Suites", "Repairs"]
     },
     {
-      name: "LINEA SoHo",
+      name: "LUMEN AI SoHo",
       address: "123 Spring Street, New York, NY 10012",
       phone: "+1 (212) 555-0789",
       hours: "Mon-Sat: 11AM-8PM, Sun: 12PM-7PM",
