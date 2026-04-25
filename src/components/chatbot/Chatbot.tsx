@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { useCompare } from "@/components/compare/CompareContext";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -18,15 +19,27 @@ const Chatbot = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { compareRequest, consumeCompareRequest, clear: clearCompare } = useCompare();
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading]);
 
-  const send = async () => {
-    const text = input.trim();
+  useEffect(() => {
+    if (!compareRequest) return;
+    const [a, b] = compareRequest.items;
+    const prompt = `Please compare these two products in depth and help me decide which one to buy:\n\n1. **${a.name}** (${a.category}) — ${a.price}\n2. **${b.name}** (${b.category}) — ${b.price}\n\nBreak it down by: design & style, materials & build, occasion/use case, value for money, and a final recommendation. Also include compare-price links for both on Amazon and Google Shopping.`;
+    setOpen(true);
+    consumeCompareRequest();
+    clearCompare();
+    setTimeout(() => { send(prompt); }, 50);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [compareRequest]);
+
+  const send = async (override?: string) => {
+    const text = (override ?? input).trim();
     if (!text || loading) return;
-    setInput("");
+    if (!override) setInput("");
     const userMsg: Msg = { role: "user", content: text };
     const next = [...messages, userMsg];
     setMessages(next);
@@ -173,7 +186,7 @@ const Chatbot = () => {
               disabled={loading}
             />
             <button
-              onClick={send}
+              onClick={() => send()}
               disabled={loading || !input.trim()}
               className="px-3 bg-foreground text-background disabled:opacity-40 rounded-sm"
               aria-label="Send"

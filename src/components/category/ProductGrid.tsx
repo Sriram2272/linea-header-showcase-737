@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { Check } from "lucide-react";
 import Pagination from "./Pagination";
+import { useCompare } from "@/components/compare/CompareContext";
 import pantheonImage from "@/assets/pantheon.jpg";
 import eclipseImage from "@/assets/eclipse.jpg";
 import haloImage from "@/assets/halo.jpg";
@@ -194,13 +196,18 @@ const products: Product[] = [
 ];
 
 const ProductGrid = () => {
+  const { toggle, isSelected } = useCompare();
+
   return (
     <section className="w-full px-6 mb-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          {products.map((product) => (
-            <Link key={product.id} to={`/product/${product.id}`}>
+          {products.map((product) => {
+            const selected = isSelected(product.id);
+            return (
+            <div key={product.id} className="relative group">
+              <Link to={`/product/${product.id}`}>
               <Card 
-                className="border-none shadow-none bg-transparent group cursor-pointer"
+                className="border-none shadow-none bg-transparent cursor-pointer"
               >
                 <CardContent className="p-0">
                   <div className="aspect-square mb-3 overflow-hidden bg-muted/10 relative">
@@ -236,8 +243,32 @@ const ProductGrid = () => {
                   </div>
                 </CardContent>
               </Card>
-            </Link>
-          ))}
+              </Link>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  toggle({
+                    id: product.id,
+                    name: product.name,
+                    category: product.category,
+                    price: product.price,
+                    image: product.image,
+                  });
+                }}
+                className={`absolute top-2 right-2 z-10 flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium tracking-wide rounded-sm transition-all ${
+                  selected
+                    ? "bg-foreground text-background opacity-100"
+                    : "bg-background/90 text-foreground opacity-0 group-hover:opacity-100 hover:bg-background"
+                }`}
+                aria-label={selected ? "Remove from compare" : "Add to compare"}
+              >
+                {selected ? <Check className="h-3 w-3" /> : null}
+                {selected ? "Selected" : "Compare"}
+              </button>
+            </div>
+          );
+        })}
         </div>
       
       <Pagination />
