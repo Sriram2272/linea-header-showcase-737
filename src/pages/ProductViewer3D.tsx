@@ -29,6 +29,8 @@ const ProductViewer3D = () => {
   const [error, setError] = useState<string | null>(null);
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
   const [image, setImage] = useState<string>("");
+  const [generatedImage, setGeneratedImage] = useState<string>("");
+  const [view, setView] = useState<"image" | "3d">("image");
 
   const analyze = async () => {
     const trimmed = url.trim();
@@ -41,6 +43,7 @@ const ProductViewer3D = () => {
     setError(null);
     setAnalysis(null);
     setImage("");
+    setGeneratedImage("");
     try {
       const r = await fetch(FN_URL, {
         method: "POST",
@@ -56,6 +59,8 @@ const ProductViewer3D = () => {
       const data = await r.json();
       setAnalysis(data.analysis || {});
       setImage(data.image || "");
+      setGeneratedImage(data.generatedImage || "");
+      setView("image");
     } catch (e: any) {
       setError(e.message || "Something went wrong");
     } finally {
