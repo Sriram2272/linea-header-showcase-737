@@ -9,7 +9,11 @@ const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 const Chatbot = () => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "assistant", content: "Hi, I'm **Lumi** ✨ — your Lumen AI assistant. Ask me anything about our products!" },
+    {
+      role: "assistant",
+      content:
+        "Hi, I'm **Lumi** ✨\n\nAsk me about any product, or say _\"compare Pantheon prices\"_ and I'll send you links to Amazon & Google Shopping.",
+    },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -121,8 +125,23 @@ const Chatbot = () => {
                       : "bg-muted text-foreground"
                   }`}
                 >
-                  <div className="prose prose-sm max-w-none [&>*]:my-0 [&_p]:my-0 [&_strong]:font-medium">
-                    <ReactMarkdown>{m.content || "…"}</ReactMarkdown>
+                  <div className="prose prose-sm max-w-none [&>*]:my-0 [&_p]:my-0 [&_strong]:font-medium [&_ul]:my-1 [&_ul]:pl-4 [&_li]:my-0.5">
+                    <ReactMarkdown
+                      components={{
+                        a: ({ node, ...props }) => (
+                          <a
+                            {...props}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`underline underline-offset-2 ${
+                              m.role === "user" ? "text-background" : "text-foreground font-medium"
+                            }`}
+                          />
+                        ),
+                      }}
+                    >
+                      {m.content || "…"}
+                    </ReactMarkdown>
                   </div>
                 </div>
               </div>
