@@ -1,5 +1,5 @@
 import { useState, Suspense, lazy } from "react";
-import { Loader2, Sparkles, Link2, ExternalLink } from "lucide-react";
+import { Loader2, Sparkles, Link2, ExternalLink, Box, ImageIcon } from "lucide-react";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 
