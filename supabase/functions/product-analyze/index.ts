@@ -135,8 +135,43 @@ serve(async (req) => {
       analysis = { error: "Could not parse analysis" };
     }
 
+    // Generate a clean studio product render with AI
+    let generatedImage = "";
+    try {
+      const prompt = `Photorealistic studio product photography of: ${analysis.name || pageTitle || "the product"}. ${
+        analysis.summary || ""
+      } Materials: ${(analysis.materials || []).join(", ")}. Centered on a clean off-white seamless background, soft three-point studio lighting, subtle contact shadow, sharp focus, high detail, ecommerce hero shot, no text, no watermark.`;
+
+      const imgResp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-flash-image",
+          messages: [{ role: "user", content: prompt }],
+          modalities: ["image", "text"],
+        }),
+      });
+      if (imgResp.ok) {
+        const imgData = await imgResp.json();
+        generatedImage = imgData.choices?.[0]?.message?.images?.[0]?.image_url?.url || "";
+      } else {
+        console.error("image gen failed", imgResp.status, await imgResp.text());
+      }
+    } catch (e) {
+      console.error("image gen error", e);
+    }
+
     return new Response(
-      JSON.stringify({ analysis, image: ogImage, sourceUrl: url, sourceTitle: pageTitle }),
+      JSON.stringify({
+        analysis,
+        image: ogImage,
+        generatedImage,
+        sourceUrl: url,
+        sourceTitle: pageTitle,
+      }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (e) {
