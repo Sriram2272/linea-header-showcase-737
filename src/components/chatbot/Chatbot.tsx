@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { useCompare } from "@/components/compare/CompareContext";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
