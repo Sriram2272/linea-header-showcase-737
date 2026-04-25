@@ -98,10 +98,18 @@ const Chatbot = () => {
       {/* Floating button */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-foreground text-background shadow-lg hover:scale-105 transition-transform flex items-center justify-center"
+        className="fixed bottom-6 right-6 z-[100] h-16 px-6 rounded-full bg-foreground text-background shadow-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2 ring-4 ring-foreground/10 animate-in fade-in slide-in-from-bottom-4"
         aria-label="Open chat"
       >
-        {open ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
+        {open ? (
+          <X className="h-5 w-5" />
+        ) : (
+          <>
+            <MessageCircle className="h-6 w-6" />
+            <span className="text-sm font-medium tracking-wide hidden sm:inline">Ask Lumi</span>
+            <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-green-500 ring-2 ring-background animate-pulse" />
+          </>
+        )}
       </button>
 
       {/* Panel */}
