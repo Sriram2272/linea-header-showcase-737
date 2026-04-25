@@ -9,7 +9,7 @@ interface Store {
 
 const stores: Store[] = [
   {
-    name: "LINEA Madison Avenue",
+    name: "LUMEN AI Madison Avenue",
     address: "789 Madison Avenue, New York, NY 10065",
     phone: "+1 (212) 555-0123",
     hours: "Mon-Sat: 10AM-8PM, Sun: 12PM-6PM",
@@ -17,7 +17,7 @@ const stores: Store[] = [
     lng: -73.9776
   },
   {
-    name: "LINEA Beverly Hills", 
+    name: "LUMEN AI Beverly Hills", 
     address: "456 Rodeo Drive, Beverly Hills, CA 90210",
     phone: "+1 (310) 555-0456",
     hours: "Mon-Sat: 10AM-8PM, Sun: 12PM-6PM",
@@ -25,7 +25,7 @@ const stores: Store[] = [
     lng: -118.4014
   },
   {
-    name: "LINEA SoHo",
+    name: "LUMEN AI SoHo",
     address: "123 Spring Street, New York, NY 10012", 
     phone: "+1 (212) 555-0789",
     hours: "Mon-Sat: 11AM-8PM, Sun: 12PM-7PM",

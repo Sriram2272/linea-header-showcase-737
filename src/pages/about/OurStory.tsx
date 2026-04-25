@@ -26,7 +26,7 @@ const OurStory = () => {
               image="/founders.png"
               imageAlt="Company founders"
               title="Founded on Passion"
-              content="LINEA Jewelry was born from a shared vision of creating timeless pieces that transcend fleeting trends. Our founders, united by their passion for exceptional craftsmanship and sustainable practices, established the brand with a commitment to creating jewelry that tells a story - your story."
+              content="LUMEN AI Jewelry was born from a shared vision of creating timeless pieces that transcend fleeting trends. Our founders, united by their passion for exceptional craftsmanship and sustainable practices, established the brand with a commitment to creating jewelry that tells a story - your story."
               imagePosition="left"
             />
           </ContentSection>

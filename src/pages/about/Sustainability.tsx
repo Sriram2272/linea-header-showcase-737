@@ -71,7 +71,7 @@ const Sustainability = () => {
               <div className="space-y-4">
                 <h3 className="text-lg font-light text-foreground">Take-Back Program</h3>
                 <p className="text-muted-foreground">
-                  When you're ready for something new, we'll take back your LINEA jewelry to be recycled into future pieces.
+                  When you're ready for something new, we'll take back your LUMEN AI jewelry to be recycled into future pieces.
                 </p>
               </div>
             </div>
