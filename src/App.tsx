@@ -18,6 +18,7 @@ import StoreLocator from "./pages/about/StoreLocator";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 
+
 const queryClient = new QueryClient();
 
 const App = () => (
