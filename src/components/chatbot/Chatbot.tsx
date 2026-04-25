@@ -176,7 +176,7 @@ const Chatbot = () => {
               disabled={loading}
             />
             <button
-              onClick={send}
+              onClick={() => send()}
               disabled={loading || !input.trim()}
               className="px-3 bg-foreground text-background disabled:opacity-40 rounded-sm"
               aria-label="Send"
