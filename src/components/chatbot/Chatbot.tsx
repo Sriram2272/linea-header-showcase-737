@@ -19,6 +19,7 @@ const Chatbot = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { compareRequest, consumeCompareRequest, clear: clearCompare } = useCompare();
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -31,12 +32,9 @@ const Chatbot = () => {
     setOpen(true);
     consumeCompareRequest();
     clearCompare();
-    // small delay so panel mounts
     setTimeout(() => { send(prompt); }, 50);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [compareRequest]);
-
-  const { compareRequest, consumeCompareRequest, clear: clearCompare } = useCompare();
 
   const send = async (override?: string) => {
     const text = (override ?? input).trim();
