@@ -109,22 +109,65 @@ const ProductViewer3D = () => {
 
         {analysis && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-in fade-in slide-in-from-bottom-4">
-            {/* 3D viewer */}
-            <div className="aspect-square bg-muted/20 border border-border rounded-sm overflow-hidden relative">
-              <Suspense fallback={
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-                </div>
-              }>
-                <Product3D
-                  shape={analysis.shape}
-                  color={analysis.color_hex}
-                  metallic={analysis.metallic ?? true}
-                  roughness={analysis.roughness ?? 0.25}
-                />
-              </Suspense>
-              <div className="absolute bottom-3 left-3 text-[10px] tracking-widest font-light text-foreground/60 bg-background/80 px-2 py-1 rounded-sm">
-                DRAG TO ROTATE • SCROLL TO ZOOM
+            {/* Viewer */}
+            <div>
+              <div className="aspect-square bg-muted/20 border border-border rounded-sm overflow-hidden relative">
+                {view === "image" && generatedImage ? (
+                  <img
+                    src={generatedImage}
+                    alt={analysis.name || "Product"}
+                    className="w-full h-full object-cover animate-in fade-in"
+                  />
+                ) : view === "image" && image ? (
+                  <img
+                    src={image}
+                    alt={analysis.name || "Product"}
+                    className="w-full h-full object-contain bg-white animate-in fade-in"
+                  />
+                ) : (
+                  <Suspense fallback={
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                    </div>
+                  }>
+                    <Product3D
+                      shape={analysis.shape}
+                      color={analysis.color_hex}
+                      metallic={analysis.metallic ?? true}
+                      roughness={analysis.roughness ?? 0.25}
+                    />
+                  </Suspense>
+                )}
+                {view === "3d" && (
+                  <div className="absolute bottom-3 left-3 text-[10px] tracking-widest font-light text-foreground/60 bg-background/80 px-2 py-1 rounded-sm">
+                    DRAG TO ROTATE • SCROLL TO ZOOM
+                  </div>
+                )}
+                {view === "image" && generatedImage && (
+                  <div className="absolute top-3 left-3 text-[10px] tracking-widest font-light text-foreground/60 bg-background/80 px-2 py-1 rounded-sm flex items-center gap-1">
+                    <Sparkles className="h-2.5 w-2.5" /> AI GENERATED
+                  </div>
+                )}
+              </div>
+              {/* Toggle */}
+              <div className="flex items-center gap-1 mt-3 p-1 bg-muted/30 rounded-sm w-fit">
+                <button
+                  onClick={() => setView("image")}
+                  disabled={!generatedImage && !image}
+                  className={`flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide rounded-sm transition-colors disabled:opacity-30 ${
+                    view === "image" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <ImageIcon className="h-3.5 w-3.5" /> Image
+                </button>
+                <button
+                  onClick={() => setView("3d")}
+                  className={`flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide rounded-sm transition-colors ${
+                    view === "3d" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Box className="h-3.5 w-3.5" /> 3D View
+                </button>
               </div>
             </div>
 
