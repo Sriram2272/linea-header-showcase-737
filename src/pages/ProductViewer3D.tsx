@@ -4,6 +4,7 @@ import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 
 const Product3D = lazy(() => import("@/components/viewer/Product3D"));
+import ImageCompare from "@/components/viewer/ImageCompare";
 
 type Analysis = {
   name?: string;
@@ -262,6 +263,8 @@ const ProductViewer3D = () => {
             </div>
           </div>
         )}
+
+        <ImageCompare />
       </main>
       <Footer />
     </div>
