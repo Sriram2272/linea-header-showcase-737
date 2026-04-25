@@ -24,6 +24,18 @@ const Chatbot = () => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading]);
 
+  useEffect(() => {
+    if (!compareRequest) return;
+    const [a, b] = compareRequest.items;
+    const prompt = `Please compare these two products in depth and help me decide which one to buy:\n\n1. **${a.name}** (${a.category}) — ${a.price}\n2. **${b.name}** (${b.category}) — ${b.price}\n\nBreak it down by: design & style, materials & build, occasion/use case, value for money, and a final recommendation. Also include compare-price links for both on Amazon and Google Shopping.`;
+    setOpen(true);
+    consumeCompareRequest();
+    clearCompare();
+    // small delay so panel mounts
+    setTimeout(() => { send(prompt); }, 50);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [compareRequest]);
+
   const { compareRequest, consumeCompareRequest, clear: clearCompare } = useCompare();
 
   const send = async (override?: string) => {
