@@ -135,6 +135,12 @@ const Navigation = () => {
       images: [
         { src: "/founders.png", alt: "Company Founders", label: "Read our story" }
       ]
+    },
+    {
+      name: "3D Product Viewer",
+      href: "/3d-viewer",
+      submenuItems: [],
+      images: []
     }
   ];
 
