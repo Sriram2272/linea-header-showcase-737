@@ -24,10 +24,12 @@ const Chatbot = () => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading]);
 
-  const send = async () => {
-    const text = input.trim();
+  const { compareRequest, consumeCompareRequest, clear: clearCompare } = useCompare();
+
+  const send = async (override?: string) => {
+    const text = (override ?? input).trim();
     if (!text || loading) return;
-    setInput("");
+    if (!override) setInput("");
     const userMsg: Msg = { role: "user", content: text };
     const next = [...messages, userMsg];
     setMessages(next);
