@@ -9,7 +9,11 @@ const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 const Chatbot = () => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "assistant", content: "Hi, I'm **Lumi** ✨ — your Lumen AI assistant. Ask me anything about our products!" },
+    {
+      role: "assistant",
+      content:
+        "Hi, I'm **Lumi** ✨\n\nAsk me about any product, or say _\"compare Pantheon prices\"_ and I'll send you links to Amazon & Google Shopping.",
+    },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
